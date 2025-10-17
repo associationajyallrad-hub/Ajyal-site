@@ -1,217 +1,178 @@
 <!doctype html>
-<html lang="ar" dir="rtl">  
-<head>  
-  <meta charset="utf-8">  
-  <meta name="viewport" content="width=device-width,initial-scale=1">  
-  <title>جمعية أجيال الغد للتنمية والنهوض بالعالم القروي</title>  
-  <style>  
-    :root{  
-      --green:#008043;  
-      --red:#D0171D;  
-      --black:#000000;  
-      --white:#FFFFFF;  
-    }  
-    *{box-sizing:border-box}  
-    body{font-family:Tahoma,Arial,Helvetica,sans-serif;margin:0;background:#f7faf7;color:var(--black)}  
-    header{background:linear-gradient(90deg,var(--green),var(--red));color:#fff;padding:20px 0;text-align:center}  
-    header h1{margin:0;font-size:1.6rem}  
-    nav{display:flex;justify-content:center;flex-wrap:wrap;gap:12px;margin-top:12px}  
-    nav a{color:#fff;text-decoration:none;background:rgba(255,255,255,0.08);padding:8px 12px;border-radius:8px;transition:0.3s}  
-    nav a:hover{background:rgba(255,255,255,0.25)}  
-    .container{max-width:980px;margin:20px auto;padding:0 16px}  
-    h2{margin-top:0}  
-    .card{background:#fff;padding:14px;border-radius:8px;box-shadow:0 1px 4px rgba(0,0,0,0.05)}  
-    ul{padding:0 18px}  
-    .members li{margin-bottom:6px}  
-    footer{text-align:center;color:#444;margin:30px 0}  
-    label{display:block;margin:8px 0 6px}  
-    input,textarea,select{width:100%;padding:8px;border:1px solid #ddd;border-radius:6px}  
-    button{background:var(--green);color:#fff;border:none;padding:10px 14px;border-radius:8px;cursor:pointer;transition:0.3s}  
-    button:hover{background:var(--red)}  
-    .grid{display:grid;grid-template-columns:1fr 320px;gap:18px;margin-top:18px}  
-    @media(max-width:880px){.grid{grid-template-columns:1fr}}  
-    .activities-list{display:flex;flex-direction:column;gap:12px;margin-top:12px}  
-    .activity{border-right:4px solid var(--green);padding:8px 12px;background:#fff;border-radius:6px}  
-    .activity img{width:100%;border-radius:6px;margin-bottom:6px}  
-  </style>  
-</head>  
-<body>  
-  <header>  
-    <h1>جمعية أجيال الغد للتنمية والنهوض بالعالم القروي</h1>  
-    <nav>  
-      <a href="#home">الرئيسية</a>  
-      <a href="#about">من نحن</a>  
-      <a href="#membership">الانخراط / التبرع</a>  
-      <a href="#activities">الأنشطة والأخبار</a>  
-      <a href="#contact">اتصل بنا</a>  
-    </nav>  
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>جمعية أجيال الغد للتنمية والنهوض بالعالم القروي</title>
+  <style>
+    :root{
+      --green:#008043;
+      --red:#D0171D;
+      --black:#000000;
+      --white:#FFFFFF;
+    }
+    *{box-sizing:border-box}
+    body{font-family:Tahoma,Arial,Helvetica,sans-serif;margin:0;background:#f7faf7;color:var(--black)}
+    header{background:linear-gradient(90deg,var(--green),var(--red));color:#fff;padding:20px 0;text-align:center}
+    header h1{margin:0;font-size:1.6rem}
+    nav{display:flex;justify-content:center;flex-wrap:wrap;gap:12px;margin-top:12px}
+    nav a{color:#fff;text-decoration:none;background:rgba(255,255,255,0.08);padding:8px 12px;border-radius:8px;transition:0.3s}
+    nav a:hover{background:rgba(255,255,255,0.25)}
+    .container{max-width:980px;margin:20px auto;padding:0 16px}
+    h2{margin-top:0}
+    .card{background:#fff;padding:14px;border-radius:8px;box-shadow:0 1px 4px rgba(0,0,0,0.05)}
+    ul{padding:0 18px}
+    .members li{margin-bottom:6px}
+    footer{text-align:center;color:#444;margin:30px 0}
+    label{display:block;margin:8px 0 6px}
+    input,textarea,select{width:100%;padding:8px;border:1px solid #ddd;border-radius:6px}
+    button{background:var(--green);color:#fff;border:none;padding:10px 14px;border-radius:8px;cursor:pointer;transition:0.3s}
+    button:hover{background:var(--red)}
+    .grid{display:grid;grid-template-columns:1fr 320px;gap:18px;margin-top:18px}
+    @media(max-width:880px){.grid{grid-template-columns:1fr}}
+    .activities-list{display:flex;flex-direction:column;gap:12px;margin-top:12px}
+    .activity{border-right:4px solid var(--green);padding:8px 12px;background:#fff;border-radius:6px}
+  </style>
+</head>
+<body>
+  <header>
+    <h1>جمعية أجيال الغد للتنمية والنهوض بالعالم القروي</h1>
+    <nav>
+      <a href="#home">الرئيسية</a>
+      <a href="#about">من نحن</a>
+      <a href="#membership">الانخراط / التبرع</a>
+      <a href="#activities">الأنشطة والأخبار</a>
+      <a href="#contact">اتصل بنا</a>
+    </nav>
   </header>  
 
-  <main class="container">  
-    <section id="activities" class="card" style="margin-top:18px">  
-      <h2>الأنشطة والأخبار</h2>  
-      <p>يمكن للأعضاء فقط نشر الأنشطة بعد إدخال رمز العضو.</p>  
-
-      <div id="activitiesList" class="activities-list"></div>  
-
-      <div id="memberLoginDiv">  
-        <label>أدخل الرمز للوصول للنشر</label>  
-        <input id="memberCodeInput" type="password" placeholder="رمز العضو">  
-        <button onclick="tryMemberLogin()">دخول</button>  
-        <p id="loginMsg" style="color:red;"></p>  
-      </div>  
-
-      <div id="secretArea" style="display:none; margin-top:12px">  
-        <h4>نشر نشاط جديد</h4>  
-        <form id="activityForm" onsubmit="return addActivity(event)">  
-          <label>عنوان النشاط</label>  
-          <input id="postTitle" required>  
-          <label>تفاصيل النشاط</label>  
-          <textarea id="postBody" rows="4" required></textarea>  
-          <label>تاريخ النشاط</label>  
-          <input id="postDate" type="date">  
-          <label>صورة النشاط (اختياري)</label>  
-          <input id="postImage" type="file" accept="image/*">  
-          <button type="submit">إضافة النشاط</button>  
-        </form>  
-      </div>  
+  <main class="container">
+    <section id="home" class="card">
+      <h2>مرحبا بكم في موقع الجمعية</h2>
+      <p>جمعية أجيال الغد للتنمية والنهوض بالعالم القروي تعمل على تعزيز التنمية في المناطق القروية من خلال مشاريع تربوية، اجتماعية وثقافية.</p>
     </section>
-  </main>  
 
-  <footer>  
-    <div class="container">  
-      <p>© جمعية أجيال الغد للتنمية والنهوض بالعالم القروي — جميع الحقوق محفوظة</p>  
-      <p>تم إنشاء هذا الموقع من طرف شادي الذهب</p>  
-    </div>  
-  </footer>  
+    <div class="grid">
+      <div>
+        <section id="about" class="card">
+          <h2>من نحن</h2>
+          <p>جمعية أجيال الغد للتنمية والنهوض بالعالم القروي هي جمعية تهدف إلى تعزيز التنمية في المناطق القروية من خلال المشاريع التربوية والاجتماعية والثقافية.</p>
+          <h3>أعضاء المكتب</h3>
+          <ul class="members">
+            <li>يونس السناني — الرئيس</li>
+            <li>المعاشي المهدي — نائب الرئيس</li>
+            <li>طارق السناني — الكاتب العام</li>
+            <li>شادي الذهب — نائب الكاتب</li>
+            <li>ابراهيم السناني — أمين المال</li>
+            <li>عبد العزيز الزمراني — نائب الأمين</li>
+          </ul>
+          <h3>المستشارون</h3>
+          <ul>
+            <li>محمد شوقي</li>
+            <li>عبد الإله العواد</li>
+            <li>عبد الهادي العملية</li>
+            <li>حسام المعاشي</li>
+            <li>خديجة الشرافي</li>
+          </ul>
+        </section>
 
-  <!-- Firebase SDKs -->  
-  <script type="module">
-    // Import Firebase
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
-    import { getFirestore, collection, addDoc, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
-    import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-storage.js";
+        <section id="membership" class="card" style="margin-top:18px">
+          <h3>انخراط / تبرع</h3>
+          <p>سيتم إرسال معلومات الاستمارة مباشرة إلى بريد الجمعية عبر Formspree</p>
+          <form action="https://formspree.io/f/xzzjojkl" method="POST">
+            <label>الاسم الكامل</label>
+            <input name="name" required>
+            <label>البريد الإلكتروني</label>
+            <input name="email" type="email" required>
+            <label>الهاتف</label>
+            <input name="phone">
+            <label>المدينة</label>
+            <input name="city">
+            <label>نوع الطلب</label>
+            <select name="type">
+              <option value="انخراط">انخراط</option>
+              <option value="تبرع">تبرع</option>
+            </select>
+            <label>المبلغ (إن كان تبرعًا)</label>
+            <input name="amount" type="number" min="0">
+            <label>رسالة / ملاحظة</label>
+            <textarea name="message" rows="3"></textarea>
+            <button type="submit">إرسال إلى الجمعية</button>
+          </form>
+        </section>
 
-    // إعداد Firebase الخاص بك
-    const firebaseConfig = {
-      apiKey: "AIzaSyC8vlv48Z0fqhxXZp9_rGRsyfYHtvZrpiI",
-      authDomain: "ajyallradassociation.firebaseapp.com",
-      projectId: "ajyallradassociation",
-      storageBucket: "ajyallradassociation.firebasestorage.app",
-      messagingSenderId: "747684346301",
-      appId: "1:747684346301:web:c89dbab1fd98fffa243ad4",
-      measurementId: "G-BKEPCFS04V"
-    };
+        <section id="activities" class="card" style="margin-top:18px">
+          <h2>الأنشطة والأخبار</h2>
+          <p>يمكن للأعضاء فقط نشر الأنشطة بعد إدخال رمز العضو.</p>
 
-    // تهيئة Firebase
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
-    const storage = getStorage(app);
+          <div id="memberLoginDiv">
+            <label>أدخل الرمز للوصول للنشر</label>
+            <input id="memberCodeInput" type="password" placeholder="رمز العضو">
+            <button onclick="tryMemberLogin()">دخول</button>
+            <p id="loginMsg" style="color:red;"></p>
+          </div>
 
-    const MEMBER_CODE = "Ajyal.2025";
+          <div id="secretArea" style="display:none; margin-top:12px">
+            <h4>نشر نشاط جديد</h4>
+            <form id="activityForm" action="https://formspree.io/f/xzzjojkl" method="POST" enctype="multipart/form-data" onsubmit="return validateActivity()">
+              <label>عنوان النشاط</label>
+              <input name="title" id="postTitle" required>
+              <label>تفاصيل النشاط</label>
+              <textarea name="body" id="postBody" rows="4" required></textarea>
+              <label>تاريخ النشاط</label>
+              <input name="date" id="postDate" type="date">
+              <label>صورة النشاط (اختياري)</label>
+              <input name="image" id="postImage" type="file" accept="image/*">
+              <input type="hidden" name="memberCode" id="hiddenMemberCode">
+              <button type="submit">إرسال النشاط إلى الجمعية</button>
+            </form>
+          </div>
+        </section>
+      </div>
 
-    // تحميل الأنشطة من Firestore
-    async function loadActivities() {
-      const q = query(collection(db, "activities"), orderBy("date", "desc"));
-      const querySnapshot = await getDocs(q);
-      const container = document.getElementById("activitiesList");
-      container.innerHTML = "";
-      if (querySnapshot.empty) {
-        container.innerHTML = "<p>لم يتم العثور على الأنشطة بعد.</p>";
-        return;
-      }
-      querySnapshot.forEach((doc) => {
-        const act = doc.data();
-        const div = document.createElement("div");
-        div.className = "activity";
-        div.innerHTML = `
-          ${act.image ? `<img src="${act.image}" alt="${act.title}">` : ""}
-          <h4>${act.title}</h4>
-          <p>${act.body}</p>
-          <small>📅 ${act.date}</small>
-        `;
-        container.appendChild(div);
-      });
-    }
+      <aside>
+        <section id="contact" class="card">
+          <h3>اتصل بنا</h3>
+          <p>بريد الجمعية: <strong>associationajyallrad@gmail.com</strong></p>
+          <p>صفحة الجمعية على فيسبوك: <a href="https://www.facebook.com/profile.php?id=61566263870851" target="_blank">اضغط هنا</a></p>
+          <p>قناة واتساب: <a href="https://whatsapp.com/channel/0029Vb71syUGJP8Qcz0WFM1M" target="_blank">اضغط هنا للانضمام</a></p>
+        </section>
+      </aside>
+    </div>
+  </main>
 
-    // تحقق رمز العضو
-    function tryMemberLogin() {
-      const code = document.getElementById("memberCodeInput").value.trim();
-      const msg = document.getElementById("loginMsg");
-      if (code === MEMBER_CODE) {
-        document.getElementById("secretArea").style.display = "block";
-        document.getElementById("memberLoginDiv").style.display = "none";
-        msg.textContent = "";
-      } else {
-        msg.textContent = "رمز غير صحيح.";
-      }
-    }
+  <footer>
+    <div class="container">
+      <p>© جمعية أجيال الغد للتنمية والنهوض بالعالم القروي — جميع الحقوق محفوظة</p>
+      <p>تم إنشاء هذا الموقع من طرف شادي الذهب</p>
+    </div>
+  </footer>
 
-    // إضافة نشاط جديد
-    async function addActivity(event) {
-      event.preventDefault();
-      const title = document.getElementById("postTitle").value.trim();
-      const body = document.getElementById("postBody").value.trim();
-      const date = document.getElementById("postDate").value || new Date().toISOString().split("T")[0];
-      const imageInput = document.getElementById("postImage");
-      let imageURL = "";
+  <script>
+    const MEMBER_CODE = 'Ajyal.2025';
 
-      if (imageInput.files && imageInput.files[0]) {
-        const file = imageInput.files[0];
-        const storageRef = ref(storage, `activities/${Date.now()}_${file.name}`);
-        await uploadBytes(storageRef, file);
-        imageURL = await getDownloadURL(storageRef);
-      }
-
-      await addDoc(collection(db, "activities"), { title, body, date, image: imageURL });
-      document.getElementById("activityForm").reset();
-      alert("تمت إضافة النشاط بنجاح!");
-      loadActivities();
-    }
-
-    loadActivities();
-  </script>
-</body>  
-</html>          ${act.image ? `<img src="${act.image}" alt="${act.title}">` : ''}
-          <h4>${act.title}</h4>
-          <p>${act.body}</p>
-          <small>📅 ${act.date}</small>
-        `;
-        container.appendChild(div);
-      });
-    }
-
-    // تحقق رمز العضو
     function tryMemberLogin(){
       const code = document.getElementById('memberCodeInput').value.trim();
       const msg = document.getElementById('loginMsg');
       if(code === MEMBER_CODE){
         document.getElementById('secretArea').style.display = 'block';
         document.getElementById('memberLoginDiv').style.display = 'none';
+        document.getElementById('hiddenMemberCode').value = code;
         msg.textContent = '';
       } else {
         msg.textContent = 'رمز غير صحيح.';
       }
     }
 
-    // إضافة نشاط جديد
-    function addActivity(event){
-      event.preventDefault();
+    function validateActivity(){
       const title = document.getElementById('postTitle').value.trim();
       const body = document.getElementById('postBody').value.trim();
-      const date = document.getElementById('postDate').value || new Date().toISOString().split('T')[0];
-      const imageInput = document.getElementById('postImage');
-      let imageURL = '';
-      if(imageInput.files && imageInput.files[0]){
-        imageURL = URL.createObjectURL(imageInput.files[0]);
+      if(!title || !body){
+        alert('المرجو إدخال عنوان وتفاصيل النشاط.');
+        return false;
       }
-      activities.push({title, body, date, image: imageURL});
-      loadActivities();
-      document.getElementById('activityForm').reset();
-      alert('تمت إضافة النشاط بنجاح!');
+      return true;
     }
-
-    loadActivities();
   </script>
 </body>
 </html>
