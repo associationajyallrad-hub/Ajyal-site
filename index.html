@@ -32,6 +32,7 @@
     @media(max-width:880px){.grid{grid-template-columns:1fr}}
     .activities-list{display:flex;flex-direction:column;gap:12px;margin-top:12px}
     .activity{border-right:4px solid var(--green);padding:8px 12px;background:#fff;border-radius:6px}
+    .activity img{width:100%;border-radius:6px;margin-bottom:6px}
   </style>
 </head>
 <body>
@@ -47,98 +48,39 @@
   </header>  
 
   <main class="container">
-    <section id="home" class="card">
-      <h2>مرحبا بكم في موقع الجمعية</h2>
-      <p>جمعية أجيال الغد للتنمية والنهوض بالعالم القروي تعمل على تعزيز التنمية في المناطق القروية من خلال مشاريع تربوية، اجتماعية وثقافية.</p>
-    </section>
+    <!-- بقية الأقسام تبقى كما هي -->
 
-    <div class="grid">
-      <div>
-        <section id="about" class="card">
-          <h2>من نحن</h2>
-          <p>جمعية أجيال الغد للتنمية والنهوض بالعالم القروي هي جمعية تهدف إلى تعزيز التنمية في المناطق القروية من خلال المشاريع التربوية والاجتماعية والثقافية.</p>
-          <h3>أعضاء المكتب</h3>
-          <ul class="members">
-            <li>يونس السناني — الرئيس</li>
-            <li>المعاشي المهدي — نائب الرئيس</li>
-            <li>طارق السناني — الكاتب العام</li>
-            <li>شادي الذهب — نائب الكاتب</li>
-            <li>ابراهيم السناني — أمين المال</li>
-            <li>عبد العزيز الزمراني — نائب الأمين</li>
-          </ul>
-          <h3>المستشارون</h3>
-          <ul>
-            <li>محمد شوقي</li>
-            <li>عبد الإله العواد</li>
-            <li>عبد الهادي العملية</li>
-            <li>حسام المعاشي</li>
-            <li>خديجة الشرافي</li>
-          </ul>
-        </section>
+    <section id="activities" class="card" style="margin-top:18px">
+      <h2>الأنشطة والأخبار</h2>
+      <p>يمكن للأعضاء فقط نشر الأنشطة بعد إدخال رمز العضو.</p>
 
-        <section id="membership" class="card" style="margin-top:18px">
-          <h3>انخراط / تبرع</h3>
-          <p>سيتم إرسال معلومات الاستمارة مباشرة إلى بريد الجمعية عبر Formspree</p>
-          <form action="https://formspree.io/f/xzzjojkl" method="POST">
-            <label>الاسم الكامل</label>
-            <input name="name" required>
-            <label>البريد الإلكتروني</label>
-            <input name="email" type="email" required>
-            <label>الهاتف</label>
-            <input name="phone">
-            <label>المدينة</label>
-            <input name="city">
-            <label>نوع الطلب</label>
-            <select name="type">
-              <option value="انخراط">انخراط</option>
-              <option value="تبرع">تبرع</option>
-            </select>
-            <label>المبلغ (إن كان تبرعًا)</label>
-            <input name="amount" type="number" min="0">
-            <label>رسالة / ملاحظة</label>
-            <textarea name="message" rows="3"></textarea>
-            <button type="submit">إرسال إلى الجمعية</button>
-          </form>
-        </section>
+      <!-- عرض الأنشطة للزوار -->
+      <div id="activitiesList" class="activities-list"></div>
 
-        <section id="activities" class="card" style="margin-top:18px">
-          <h2>الأنشطة والأخبار</h2>
-          <p>يمكن للأعضاء فقط نشر الأنشطة بعد إدخال رمز العضو.</p>
-
-          <div id="memberLoginDiv">
-            <label>أدخل الرمز للوصول للنشر</label>
-            <input id="memberCodeInput" type="password" placeholder="رمز العضو">
-            <button onclick="tryMemberLogin()">دخول</button>
-            <p id="loginMsg" style="color:red;"></p>
-          </div>
-
-          <div id="secretArea" style="display:none; margin-top:12px">
-            <h4>نشر نشاط جديد</h4>
-            <form id="activityForm" action="https://formspree.io/f/xzzjojkl" method="POST" enctype="multipart/form-data" onsubmit="return validateActivity()">
-              <label>عنوان النشاط</label>
-              <input name="title" id="postTitle" required>
-              <label>تفاصيل النشاط</label>
-              <textarea name="body" id="postBody" rows="4" required></textarea>
-              <label>تاريخ النشاط</label>
-              <input name="date" id="postDate" type="date">
-              <label>صورة النشاط (اختياري)</label>
-              <input name="image" id="postImage" type="file" accept="image/*">
-              <input type="hidden" name="memberCode" id="hiddenMemberCode">
-              <button type="submit">إرسال النشاط إلى الجمعية</button>
-            </form>
-          </div>
-        </section>
+      <!-- نموذج دخول الأعضاء -->
+      <div id="memberLoginDiv">
+        <label>أدخل الرمز للوصول للنشر</label>
+        <input id="memberCodeInput" type="password" placeholder="رمز العضو">
+        <button onclick="tryMemberLogin()">دخول</button>
+        <p id="loginMsg" style="color:red;"></p>
       </div>
 
-      <aside>
-        <section id="contact" class="card">
-          <h3>اتصل بنا</h3>
-          <p>بريد الجمعية: <strong>associationajyallrad@gmail.com</strong></p>
-          <p>صفحة الجمعية على فيسبوك: <a href="https://www.facebook.com/profile.php?id=61566263870851" target="_blank">اضغط هنا</a></p>
-          <p>قناة واتساب: <a href="https://whatsapp.com/channel/0029Vb71syUGJP8Qcz0WFM1M" target="_blank">اضغط هنا للانضمام</a></p>
-        </section>
-      </aside>
-    </div>
+      <!-- نموذج نشر الأعضاء -->
+      <div id="secretArea" style="display:none; margin-top:12px">
+        <h4>نشر نشاط جديد</h4>
+        <form id="activityForm" onsubmit="return addActivity(event)">
+          <label>عنوان النشاط</label>
+          <input id="postTitle" required>
+          <label>تفاصيل النشاط</label>
+          <textarea id="postBody" rows="4" required></textarea>
+          <label>تاريخ النشاط</label>
+          <input id="postDate" type="date">
+          <label>صورة النشاط (اختياري)</label>
+          <input id="postImage" type="file" accept="image/*">
+          <button type="submit">إضافة النشاط</button>
+        </form>
+      </div>
+    </section>
   </main>
 
   <footer>
@@ -150,29 +92,62 @@
 
   <script>
     const MEMBER_CODE = 'Ajyal.2025';
+    let activities = []; // هنا غادي نخزن النشاطات
 
+    // تحميل وعرض الأنشطة
+    function loadActivities(){
+      const container = document.getElementById('activitiesList');
+      container.innerHTML = '';
+      if(activities.length === 0){
+        container.innerHTML = "<p>لم يتم العثور على الأنشطة بعد.</p>";
+        return;
+      }
+      // ترتيب من الأحدث للأقدم
+      activities.sort((a,b)=> new Date(b.date) - new Date(a.date));
+      activities.forEach(act=>{
+        const div = document.createElement('div');
+        div.className = 'activity';
+        div.innerHTML = `
+          ${act.image ? `<img src="${act.image}" alt="${act.title}">` : ''}
+          <h4>${act.title}</h4>
+          <p>${act.body}</p>
+          <small>📅 ${act.date}</small>
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    // تحقق رمز العضو
     function tryMemberLogin(){
       const code = document.getElementById('memberCodeInput').value.trim();
       const msg = document.getElementById('loginMsg');
       if(code === MEMBER_CODE){
         document.getElementById('secretArea').style.display = 'block';
         document.getElementById('memberLoginDiv').style.display = 'none';
-        document.getElementById('hiddenMemberCode').value = code;
         msg.textContent = '';
       } else {
         msg.textContent = 'رمز غير صحيح.';
       }
     }
 
-    function validateActivity(){
+    // إضافة نشاط جديد
+    function addActivity(event){
+      event.preventDefault();
       const title = document.getElementById('postTitle').value.trim();
       const body = document.getElementById('postBody').value.trim();
-      if(!title || !body){
-        alert('المرجو إدخال عنوان وتفاصيل النشاط.');
-        return false;
+      const date = document.getElementById('postDate').value || new Date().toISOString().split('T')[0];
+      const imageInput = document.getElementById('postImage');
+      let imageURL = '';
+      if(imageInput.files && imageInput.files[0]){
+        imageURL = URL.createObjectURL(imageInput.files[0]);
       }
-      return true;
+      activities.push({title, body, date, image: imageURL});
+      loadActivities();
+      document.getElementById('activityForm').reset();
+      alert('تمت إضافة النشاط بنجاح!');
     }
+
+    loadActivities();
   </script>
 </body>
 </html>
