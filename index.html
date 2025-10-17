@@ -173,6 +173,62 @@
       }
       return true;
     }
+<script>
+const SHEET_JSON_URL = "https://script.google.com/macros/s/AKfycbxL52QDWm_eDe8lh-8KN1oLjUa9xak9YdUkKBkiyK1TwtPzgfws6-F_7V1d9Lhonu0Maw/exec";
+
+async function loadActivities() {
+  try {
+    const response = await fetch(SHEET_JSON_URL);
+    const activities = await response.json();
+    const container = document.createElement("div");
+    container.className = "activities-list";
+
+    // تفريغ القسم قبل الإضافة
+    const section = document.getElementById("activities");
+    section.innerHTML = "<h2>الأنشطة والأخبار</h2>";
+
+    // إنشاء بطاقة لكل نشاط
+    activities.forEach(act => {
+      const card = document.createElement("div");
+      card.className = "activity";
+
+      const title = document.createElement("h3");
+      title.textContent = act.title || "بدون عنوان";
+
+      const date = document.createElement("small");
+      if (act.date) date.textContent = "📅 " + act.date;
+
+      const body = document.createElement("p");
+      body.textContent = act.body || "";
+
+      card.appendChild(title);
+      if (act.date) card.appendChild(date);
+      card.appendChild(body);
+
+      if (act.image) {
+        const img = document.createElement("img");
+        img.src = act.image;
+        img.alt = act.title;
+        img.style.width = "100%";
+        img.style.borderRadius = "6px";
+        img.style.marginTop = "8px";
+        card.appendChild(img);
+      }
+
+      container.appendChild(card);
+    });
+
+    section.appendChild(container);
+
+  } catch (err) {
+    console.error("❌ خطأ في تحميل الأنشطة:", err);
+    document.getElementById("activities").innerHTML += "<p>حدث خطأ أثناء تحميل الأنشطة.</p>";
+  }
+}
+
+// تشغيل الكود عند تحميل الصفحة
+document.addEventListener("DOMContentLoaded", loadActivities);
+</script>
   </script>
 </body>
 </html>
