@@ -41,7 +41,8 @@
       <a href="#home">الرئيسية</a>
       <a href="#about">من نحن</a>
       <a href="#membership">الانخراط / التبرع</a>
-      <a href="#activities">الأنشطة والأخبار</a>
+      <a href="#membersArea">خاص بأعضاء الجمعية</a>
+      <a href="#ourActivities">أنشطتنا</a>
       <a href="#contact">اتصل بنا</a>
     </nav>
   </header>  
@@ -101,8 +102,9 @@
           </form>
         </section>
 
-        <section id="activities" class="card" style="margin-top:18px">
-          <h2>الأنشطة والأخبار</h2>
+        <!-- قسم خاص بالأعضاء -->
+        <section id="membersArea" class="card" style="margin-top:18px">
+          <h2>خاص بأعضاء الجمعية</h2>
           <p>يمكن للأعضاء فقط نشر الأنشطة بعد إدخال رمز العضو.</p>
 
           <div id="memberLoginDiv">
@@ -114,19 +116,24 @@
 
           <div id="secretArea" style="display:none; margin-top:12px">
             <h4>نشر نشاط جديد</h4>
-            <form id="activityForm" action="https://script.google.com/macros/s/AKfycbxL52QDWm_eDe8lh-8KN1oLjUa9xak9YdUkKBkiyK1TwtPzgfws6-F_7V1d9Lhonu0Maw/exec" method="POST" enctype="multipart/form-data"> onsubmit="return validateActivity()">
+            <form id="activityForm" onsubmit="return submitActivity(event)">
               <label>عنوان النشاط</label>
-              <input name="title" id="postTitle" required>
+              <input id="postTitle" required>
               <label>تفاصيل النشاط</label>
-              <textarea name="body" id="postBody" rows="4" required></textarea>
+              <textarea id="postBody" rows="4" required></textarea>
               <label>تاريخ النشاط</label>
-              <input name="date" id="postDate" type="date">
-              <label>صورة النشاط (اختياري)</label>
-              <input name="image" id="postImage" type="file" accept="image/*">
-              <input type="hidden" name="memberCode" id="hiddenMemberCode">
+              <input id="postDate" type="date">
+              <label>رابط صورة النشاط (اختياري)</label>
+              <input id="postImage" type="url" placeholder="https://">
               <button type="submit">إرسال النشاط إلى الجمعية</button>
             </form>
           </div>
+        </section>
+
+        <!-- قسم عرض الأنشطة -->
+        <section id="ourActivities" class="card" style="margin-top:18px">
+          <h2>أنشطتنا</h2>
+          <div id="activitiesList" class="activities-list"></div>
         </section>
       </div>
 
@@ -151,84 +158,106 @@
   <script>
     const MEMBER_CODE = 'Ajyal.2025';
 
+    // معلومات Airtable
+    const AIRTABLE_API_KEY = 'patLB8b1AdVwsgn85.c0ea0a01bfb72b8b8b29ae893343fd92c7f652253527e12fc580bc44b75959b4';
+    const AIRTABLE_BASE_ID = 'appxOtIGRqw9qyDYJ';
+    const AIRTABLE_TABLE_NAME = 'tbly1bdQfRe57khJc';
+
     function tryMemberLogin(){
       const code = document.getElementById('memberCodeInput').value.trim();
       const msg = document.getElementById('loginMsg');
       if(code === MEMBER_CODE){
         document.getElementById('secretArea').style.display = 'block';
         document.getElementById('memberLoginDiv').style.display = 'none';
-        document.getElementById('hiddenMemberCode').value = code;
         msg.textContent = '';
       } else {
         msg.textContent = 'رمز غير صحيح.';
       }
     }
 
-    function validateActivity(){
+    async function submitActivity(event){
+      event.preventDefault();
       const title = document.getElementById('postTitle').value.trim();
       const body = document.getElementById('postBody').value.trim();
+      const date = document.getElementById('postDate').value;
+      const image = document.getElementById('postImage').value;
+
       if(!title || !body){
         alert('المرجو إدخال عنوان وتفاصيل النشاط.');
-        return false;
+        return;
       }
-      return true;
+
+      const data = { fields: { عنوان: title, تفاصيل: body, تاريخ: date, صورة: image } };
+
+      try {
+        const res = await fetch(`https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${AIRTABLE_TABLE_NAME}`, {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${AIRTABLE_API_KEY}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data)
+        });
+
+        if(res.ok){
+          alert('تم نشر النشاط بنجاح!');
+          document.getElementById('activityForm').reset();
+          loadActivities();
+        } else {
+          alert('حدث خطأ أثناء النشر.');
+        }
+      } catch (err) {
+        console.error(err);
+        alert('حدث خطأ أثناء الاتصال بـ Airtable.');
+      }
     }
-<script>
-const SHEET_JSON_URL = "https://script.google.com/macros/s/AKfycbxL52QDWm_eDe8lh-8KN1oLjUa9xak9YdUkKBkiyK1TwtPzgfws6-F_7V1d9Lhonu0Maw/exec";
 
-async function loadActivities() {
-  try {
-    const response = await fetch(SHEET_JSON_URL);
-    const activities = await response.json();
-    const container = document.createElement("div");
-    container.className = "activities-list";
+    async function loadActivities(){
+      try {
+        const res = await fetch(`https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${AIRTABLE_TABLE_NAME}?sort[0][field]=تاريخ&sort[0][direction]=desc`, {
+          headers: { 'Authorization': `Bearer ${AIRTABLE_API_KEY}` }
+        });
+        const data = await res.json();
+        const container = document.getElementById('activitiesList');
+        container.innerHTML = '';
 
-    // تفريغ القسم قبل الإضافة
-    const section = document.getElementById("activities");
-    section.innerHTML = "<h2>الأنشطة والأخبار</h2>";
+        data.records.forEach(act => {
+          const fields = act.fields;
+          const card = document.createElement('div');
+          card.className = 'activity';
 
-    // إنشاء بطاقة لكل نشاط
-    activities.forEach(act => {
-      const card = document.createElement("div");
-      card.className = "activity";
+          const title = document.createElement('h3');
+          title.textContent = fields.عنوان || 'بدون عنوان';
 
-      const title = document.createElement("h3");
-      title.textContent = act.title || "بدون عنوان";
+          const date = document.createElement('small');
+          if(fields.تاريخ) date.textContent = "📅 " + fields.تاريخ;
 
-      const date = document.createElement("small");
-      if (act.date) date.textContent = "📅 " + act.date;
+          const body = document.createElement('p');
+          body.textContent = fields.تفاصيل || '';
 
-      const body = document.createElement("p");
-      body.textContent = act.body || "";
+          card.appendChild(title);
+          if(fields.تاريخ) card.appendChild(date);
+          card.appendChild(body);
 
-      card.appendChild(title);
-      if (act.date) card.appendChild(date);
-      card.appendChild(body);
+          if(fields.صورة){
+            const img = document.createElement('img');
+            img.src = fields.صورة;
+            img.style.width = '100%';
+            img.style.borderRadius = '6px';
+            img.style.marginTop = '8px';
+            card.appendChild(img);
+          }
 
-      if (act.image) {
-        const img = document.createElement("img");
-        img.src = act.image;
-        img.alt = act.title;
-        img.style.width = "100%";
-        img.style.borderRadius = "6px";
-        img.style.marginTop = "8px";
-        card.appendChild(img);
+          container.appendChild(card);
+        });
+
+      } catch (err) {
+        console.error(err);
+        document.getElementById('activitiesList').innerHTML = '<p>حدث خطأ أثناء تحميل الأنشطة.</p>';
       }
+    }
 
-      container.appendChild(card);
-    });
-
-    section.appendChild(container);
-
-  } catch (err) {
-    console.error("❌ خطأ في تحميل الأنشطة:", err);
-    document.getElementById("activities").innerHTML += "<p>حدث خطأ أثناء تحميل الأنشطة.</p>";
-  }
-}
-
-// تشغيل الكود عند تحميل الصفحة
-document.addEventListener("DOMContentLoaded", loadActivities);
-</script>
+    document.addEventListener('DOMContentLoaded', loadActivities);
   </script>
 </body>
 </html>
